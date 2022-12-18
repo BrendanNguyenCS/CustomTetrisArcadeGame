@@ -1,20 +1,18 @@
-// Represents a display panel the arcade
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-
-public class GameStats extends JPanel
-{
+/**
+ * Represents a display panel for the arcade
+ */
+public class GameStats extends JPanel {
 	private JTextField gameNameText, currentHighScorer, currentHighScore;
 	private int yourScore;
-	private JLabel yourScoreText;
-	private JavaArcade game;
+	private final JLabel yourScoreText;
+	private final JavaArcade game;
 
 	// Constructor
-	public GameStats(JavaArcade t)
-	{
+	public GameStats(JavaArcade t) {
 		super(new GridLayout(2, 4, 10, 0));
 		setBorder(new EmptyBorder(0, 0, 5, 0));
 		Font gameNameFont = new Font("Monospaced", Font.BOLD, 24);
@@ -31,21 +29,19 @@ public class GameStats extends JPanel
 
 		add(yourScoreText);
 		Font displayFont = new Font("Monospaced", Font.BOLD, 16);
-
-
 	}
 
-	// Updates this display at end of game
-	public void update(int points)
-	{
-
+	/**
+	 * Updates this display at end of game
+	 */
+	public void update(int points) {
 		yourScoreText.setText(" Your Final Score: " + points);
-		if(points > Integer.parseInt(game.getHighScore())){
+		if(points > Integer.parseInt(game.getHighScore())) {
 			yourScoreText.setForeground(Color.BLUE);
 			String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
-			JOptionPane.showMessageDialog(null, "You are the new high scorer!");}
+			JOptionPane.showMessageDialog(null, "You are the new high scorer!");
+		}
 		else
 			JOptionPane.showMessageDialog(null, "You did not beat the high score");
-
 	}
 }

@@ -1,18 +1,12 @@
-/**
- * 
- *
- * @author Sebastian H and Brendan N
- * @version 1.00 2018/03/05
- *//*
-
 import javax.swing.*;
 import java.awt.*;
 
-public class Tetris
-{
-
-	public static void main(String[] args)
-	{
+/**
+ * @author Sebastian H and Brendan N
+ * @version 1.00 2018/03/05
+ */
+public class Tetris {
+	public static void main(String[] args) {
 		JFrame arcade = new JFrame();
 		arcade.setTitle("AP Java Game Room");
 		arcade.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,6 +21,4 @@ public class Tetris
 		arcade.setVisible(true);
 		panel.requestFocus();
 	}
-
 }
-*/

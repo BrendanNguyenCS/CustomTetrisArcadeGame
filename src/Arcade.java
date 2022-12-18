@@ -1,23 +1,13 @@
-
-
-import java.awt.Container;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.JPanel;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
-public class Arcade extends JFrame
-{
-  public Arcade()
-  {
+public class Arcade extends JFrame {
+  public Arcade() {
     super("AP Java Arcade");
 
     JavaArcade game = new TetrisBoard(TetrisBoard.L*TetrisBoard.COLUMNS, 450);
-
     GameStats display = new GameStats(game); //passing in a JavaArcade, therefore I know I can call getHighScore(), getScore()
-
     ControlPanel controls = new ControlPanel(game, display); //Also passing in JavaArcade to ControlPanel, I know you will respond to buttons
 
     JPanel panel = new JPanel();
@@ -31,8 +21,7 @@ public class Arcade extends JFrame
     c.add(panel, BorderLayout.CENTER);
   }
 
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) {
     Arcade window = new Arcade();
     window.setBounds(100, 100, TetrisBoard.L*TetrisBoard.COLUMNS + 30, TetrisBoard.L*TetrisBoard.ROWS + 160);
     window.setDefaultCloseOperation(EXIT_ON_CLOSE);
