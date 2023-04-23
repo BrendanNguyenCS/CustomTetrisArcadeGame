@@ -6,19 +6,19 @@ import java.awt.Color;
  * @author Brendan N
  * @version 1.00 2018/03/20
  */
-public class Triomino extends Polyomino
-{
+public class Triomino extends Polyomino {
 	/** Final ints representing names of triominoes */
 	public final int I = 0,  L= 1;
 
 	/**
 	 * Constructs a new random triomino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
 	 */
-	public Triomino(int x, int y) { this(x, y, (int)(Math.random()*2), (int)(Math.random()*4)); }
+	public Triomino(int x, int y) { this(x, y, (int)(Math.random() * 2), (int)(Math.random() * 4)); }
+
 	/**
 	 * Constructs a new triomino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Triomino(int x, int y, int type, int orientation) {
@@ -27,24 +27,22 @@ public class Triomino extends Polyomino
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
+		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 		
 		// set triomino type & orientations
 		setType(type);
-		if (type == I) {
-			setOrientations(new Block[][] {
-				{new Block(0,1), new Block(1,1), new Block(2,1)},
-				{new Block(1,3), new Block(1,2), new Block(1,1)},
-				{new Block(3,2), new Block(2,2), new Block(1,2)},
-				{new Block(2,0), new Block(2,1), new Block(2,2)}
+		switch (type) {
+			case I -> setOrientations(new Block[][]{
+				{new Block(0, 1), new Block(1, 1), new Block(2, 1)},
+				{new Block(1, 3), new Block(1, 2), new Block(1, 1)},
+				{new Block(3, 2), new Block(2, 2), new Block(1, 2)},
+				{new Block(2, 0), new Block(2, 1), new Block(2, 2)}
 			});
-		}
-		else if (type == L) {
-			setOrientations(new Block[][] {
-				{new Block(1,0), new Block(1,1), new Block(2,1)},
-				{new Block(1,0), new Block(1,1), new Block(0,1)},
-				{new Block(0,1), new Block(1,1), new Block(1,2)},
-				{new Block(1,2), new Block(1,1), new Block(2,1)}
+			case L -> setOrientations(new Block[][]{
+				{new Block(1, 0), new Block(1, 1), new Block(2, 1)},
+				{new Block(1, 0), new Block(1, 1), new Block(0, 1)},
+				{new Block(0, 1), new Block(1, 1), new Block(1, 2)},
+				{new Block(1, 2), new Block(1, 1), new Block(2, 1)}
 			});
 		}
 

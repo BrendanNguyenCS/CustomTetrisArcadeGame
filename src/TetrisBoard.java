@@ -16,10 +16,8 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	public static final int COLUMNS = 10;
 	/** Number of rows on the tetris board */
 	public static final int ROWS = 15;
-
 	/** Boolean to indicate gameplay */
 	private boolean running, paused;
-	
 	/** Controls how often we update the position of the polyomino */
 	private final Timer timer;
 	/** Current delay of the main timer */
@@ -28,31 +26,27 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	private final int DELAY = 1000;
 	/** Delay, in milliseconds, of the timer when down arrow is held */
 	private final int SHORT_DELAY = 50;
-	/** Controls how often the <code>delay</code> decrements (making polyominoes fall faster) */
+	/** Controls how often the {@link #delay} decrements (making polyominoes fall faster) */
 	private final Timer timerTimer;
 	/** Delay, in milliseconds, of the timer's speed increases */
 	private final int LONG_DELAY = 30000;
-	
 	/** Player's score */
 	private int score;
 	private String highScore;
 	private PrintWriter writer;
 	private Scanner reader;
-
 	/** The actively falling polyomino */
 	private Polyomino t;
-	/** Contains representations for all the fallen polyomino blocks (represented by <code>Color</code>s) */
+	/** Contains representations for all the fallen polyomino blocks (represented by {@link Color}s) */
 	private ArrayList<Color[]> imprints;
 
-	public TetrisBoard(int width, int height) {
-		this(width, height, Color.LIGHT_GRAY);
-		//new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
-	}
+	public TetrisBoard(int width, int height) { this(width, height, Color.LIGHT_GRAY); }
+
 	public TetrisBoard(int width, int height, Color color) {
 		running = false;
 		paused = false;
 		highScore = "0";
-		
+
 		timer = new Timer(DELAY, this);
 		timerTimer = new Timer(LONG_DELAY, new TimerTimerListener());
 
@@ -61,12 +55,12 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		setFocusTraversalKeysEnabled(false);
 		setBackground(color);
 		setPreferredSize(new Dimension(width, height));
-		
-		//startGame();	// directly start the gameplay
+
+		//startGame();
 	}
-	
-	// JAVAARCADE IMPLEMENTATION ///////////////////////////////////////////////////////////////////
-	
+
+	////////////////////////////////// JAVAARCADE IMPLEMENTATION /////////////////////////////////////////////////
+
 	public boolean running() { return running; }
 
 	public void startGame() {
@@ -79,13 +73,13 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		else if (!running) {
 			score = 0;
 			delay = DELAY;
-			
+
 			imprints = new ArrayList<>();
 			for (int i = 0; i < ROWS; i++)
 				imprints.add(new Color[COLUMNS]);
-			
-			newPolyomino();		// creates the first piece
-			repaint();		// paints everything for the first time
+
+			newPolyomino();            	// creates the first piece
+			repaint();                	// paints everything for the first time
 			timerTimer.restart();
 		}
 		timer.restart();
@@ -112,18 +106,17 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			writer = new PrintWriter(new FileWriter("highScores.txt", true));
 			reader = new Scanner(new File("highScores.txt"));
 		} catch (Exception e) {
-			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		while (reader.hasNextLine())
 			highScore = reader.nextLine();
-		
+
 		if (Integer.parseInt(highScore) < score) {
 			writer.println();
 			writer.println(score);
 		}
-		
+
 		reader.close();
 		writer.close();
 		return highScore;
@@ -137,50 +130,49 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	}
 
 	public int getPoints() { return score; }
-	
-	// LISTENER IMPLEMENTATION /////////////////////////////////////////////////////////////////////
-	
-	/** Action that happens every time <code>timer</code> fires */
+
+	///////////////////////////// LISTENER IMPLEMENTATION ///////////////////////////////////////////////////////////
+
+	/** Action that happens every time {@link #timer} fires */
 	public void actionPerformed(ActionEvent e) { moveDown(); }
 
 	/**
-	 * Invoked by <code>timerTimer</code>.<br />
-	 * Need to create this private class to implement another ActionListener
+	 * Invoked by {@link #timerTimer}.<br />
+	 * Need to create this private class to implement another {@link ActionListener}
 	 */
 	private class TimerTimerListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			delay *= .75;	// 3/4 less delay (4/3 faster)
+			delay *= .75;                                                // 3/4 less delay (4/3 faster)
 			timer.setDelay(delay);
-			timerTimer.setDelay((int)(timerTimer.getDelay()*1.5));	// longer time until next speed-up
+			timerTimer.setDelay((int)(timerTimer.getDelay()*1.5));        // longer time until next speed-up
 		}
 	}
-	
+
 	/** Used for keeping track of down arrow */
 	private boolean firstPress = true;
-	
+
 	public void keyPressed(KeyEvent e) {
 		if (running)
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP -> rotate();  		 						// rotate polyomino
-				case KeyEvent.VK_DOWN -> {   			 						// speed up polyomino
+				case KeyEvent.VK_UP -> rotate();                                      // rotate polyomino
+				case KeyEvent.VK_DOWN -> {                                            // speed up polyomino
 					if (firstPress) {
 						moveDown();
 						firstPress = false;
 					}
 					timer.setDelay(SHORT_DELAY);
 				}
-				case KeyEvent.VK_LEFT -> moveLeft();     						// move polyomino left
-				case KeyEvent.VK_RIGHT -> moveRight();   						// move polyomino right
-				case KeyEvent.VK_SPACE -> pauseGame();   						// pause game
-				case KeyEvent.VK_ESCAPE -> System.exit(0); 				// exit entire program
+				case KeyEvent.VK_LEFT -> moveLeft();                            // move polyomino left
+				case KeyEvent.VK_RIGHT -> moveRight();                          // move polyomino right
+				case KeyEvent.VK_SPACE -> pauseGame();                          // pause game
+				case KeyEvent.VK_ESCAPE -> System.exit(0);                  // exit entire program
 				default -> {}
 			}
 		else
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> startGame();   	// start game
-				case KeyEvent.VK_ESCAPE -> System.exit(0);            	// exit entire program
-				default -> {
-				}
+				case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> startGame();          // start game
+				case KeyEvent.VK_ESCAPE -> System.exit(0);               // exit entire program
+				default -> {}
 			}
 	}
 
@@ -193,11 +185,11 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 
 	public void keyTyped(KeyEvent e) {}
 
-	// MOVEMENT METHODS ////////////////////////////////////////////////////////////////////////////
-	
+	/////////////////////////////////// MOVEMENT METHODS /////////////////////////////////////////////////////
+
 	/**
-	 * Rotates the active polyomino (clockwise) using the Polyomino's method, but also incorporating
-	 * a call to repaint() and a check if the rotated version is cut off the screen or not.
+	 * Rotates the active polyomino (clockwise) using the {@link Polyomino}'s method, but also incorporating
+	 * a call to {@link #repaint()} and a check if the rotated version is cut off the screen or not.
 	 */
 	public void rotate() {
 		int xInitial = t.getX(), yInitial = t.getY();
@@ -210,19 +202,18 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 				t.setX(xInitial);
 				t.setY(yInitial);
 			}
-		}
-		else	// if can't fit on bottom, un-rotate to original
+		} else    // if can't fit on bottom, un-rotate to original
 			t.rotateCCW();
 		repaint();
 	}
-	
+
 	/**
 	 * If the rotated polyomino is off the board, move it to be fully on the board
 	 * @return <code>true</code> if all is taken care of<br /><code>false</code> if invalid rotation (rotation must be undone outside of this function)
 	 */
 	private boolean fixRotation() {
 		// LEFT SIDE
-		int minimum = t.getX() + t.getShape()[0].getX();	// x of first block (can be any block to start)
+		int minimum = t.getX() + t.getShape()[0].getX();        // x of first block (can be any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
 			if(x < minimum)
@@ -232,7 +223,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			t.moveRight();
 
 		// RIGHT SIDE
-		int maximum = minimum;	// x of block w/minimum x (can be x of any block to start)
+		int maximum = minimum;                                // x of block w/minimum x (can be x of any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
 			if(x > maximum)
@@ -242,7 +233,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			t.moveLeft();
 
 		// BOTTOM SIDE
-		int maximumY = t.getY() + t.getShape()[0].getY();	// y of first block (can be any block to start)
+		int maximumY = t.getY() + t.getShape()[0].getY();    // y of first block (can be any block to start)
 		for(Block b : t.getShape()) {
 			int y = t.getY() + b.getY();
 			if(y > maximumY)
@@ -250,11 +241,11 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		}
 		return maximumY <= ROWS - 1;
 	}
-	
+
 	/**
 	 * Moves the active polyomino left after checking whether there is
 	 * space to the left.
-	 */ 
+	 */
 	public void moveLeft() {
 		t.moveLeft();
 		if (!checkValidPosition())
@@ -276,7 +267,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	/**
 	 * Checks whether the active polyomino still fits on the board (isn't touching an old polyomino or the top of the board);<br />
 	 * if it is touching an old polyomino, adds a new polyomino to the polyominoes list and puts it at the top of the board.;<br />
-	 * if at the top, ends the game w/<code>stopGame()</code>.
+	 * if at the top, ends the game w/ {@link #stopGame()}.
 	 */
 	public void moveDown() {
 		t.moveDown();
@@ -288,7 +279,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		}
 		repaint();
 	}
-	
+
 	/**
 	 * Checks if the new position of the polyomino is overlapping any old fallen blocks.
 	 * @return <code>true</code> if valid position (or if things have been taken care of)<br /><code>false</code> if movement must be undone
@@ -297,19 +288,19 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		for (Block b : t.getShape()) {
 			int x = b.getX() + t.getX();
 			int y = b.getY() + t.getY();
-			
-			if (x < 0 || x >= COLUMNS || y >= ROWS)	// if block(s) out of bounds (excluding top)
-				return false;	
-			if (y < 0)	// skip block if above top of board
+
+			if (x < 0 || x >= COLUMNS || y >= ROWS)        // if block(s) out of bounds (excluding top)
+				return false;
+			if (y < 0)                                    // skip block if above top of board
 				continue;
-			
+
 			Color space = imprints.get(y)[x];
 			if (space != null)
 				return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * "Imprint" the active polyomino onto the board when it can no longer move down
 	 */
@@ -317,20 +308,19 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		for (Block b : t.getShape()) {
 			int x = b.getX() + t.getX();
 			int y = b.getY() + t.getY();
-			
+
 			if (y >= 0 && y < ROWS && x >= 0 && x < COLUMNS)
 				imprints.get(y)[x] = t.getColor();
 		}
 	}
-	
+
 	private void removeRows() {
-		for (int i = ROWS-1; i >= 0; i--) {
+		for (int i = ROWS - 1; i >= 0; i--) {
 			Color[] row = imprints.get(i);
 			int filledSpaces = 0;
 			for (Color color : row) {
-				if (color != null) {
+				if (color != null)
 					filledSpaces++;
-				}
 			}
 			if (filledSpaces == COLUMNS) {
 				score += COLUMNS;
@@ -340,60 +330,54 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			}
 		}
 	}
-	
+
 	/**
-	 * Creates a new active <code>Polyomino</code>, makes it the first <code>Polyomino</code> in <code>polyominoes</code> array
-	 * and pushes back all the old <code>Polyomino</code>s' indexes.<br />
-	 * <b>Note:</b> Does not call <code>repaint()</code> (prevents redundancy where this function is called)
+	 * Creates a new active {@link Polyomino}, makes it the first {@link Polyomino} in polyominoes array
+	 * and pushes back all the old {@link Polyomino}s' indexes.<br />
+	 * <b>Note:</b> Does not call {@link #repaint()} (prevents redundancy where this function is called)
 	 */
 	private Polyomino newPolyomino() {
-		int i = (int)(Math.random()*50) + 1;
+		int i = (int)(Math.random() * 50) + 1;
 		if (i < 3)
 			t = new Monomino(COLUMNS/2 - 1, 0);
-		else if (i < 3+6)
+		else if (i < 3 + 6)
 			t = new Domino(COLUMNS/2 - 1, 0);
-		else if (i < 3+6+13)
+		else if (i < 3 + 6 + 13)
 			t = new Triomino(COLUMNS/2 - 2, -1);
-		else if (i < 3+6+13+14)
+		else if (i < 3 + 6 + 13 + 14)
 			t = new Tetromino(COLUMNS/2 - 2, -2);
-		else if (i < 3+6+13+14+13)
+		else if (i < 3 + 6 + 13 + 14 + 13)
 			t = new Pentomino(COLUMNS/2 - 3, -3);
 		else
 			t = new Mysteryomino(COLUMNS/2 - 4, -4);
-		
+
 		if (!checkValidPosition())
 			endGame();
 		return t;
 	}
-	
+
 	private void endGame() {
 		t = null;
 		this.stopGame();
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 	/** Draws everything */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
 		// STATS
 		if (t != null)
 			g.drawString("Currently falling: \"" + t.getName() + "\" " + t.getPolyomino(), 30, 30);
-		//else: g.drawString("No polyomino currently falling", 120, 30);
 		if (timer.isRunning())
 			g.drawString("Current speed: " + delay + " ms/step", 30, 50);
-		//g.setColor(Color.WHITE);
 		g.drawString("Score: " + score, 30, 70);
-		
 		// DRAW ACTIVE POLYOMINO
 		if (t != null) {
 			g.setColor(t.getColor());
-			for (Block b : t.getShape()) {
-				g.fillRect(L*(t.getX() + b.getX()), L*(t.getY() + b.getY()), L, L);
-			}
+			for (Block b : t.getShape())
+				g.fillRect(L * (t.getX() + b.getX()), L * (t.getY() + b.getY()), L, L);
 		}
-		
 		// DRAW OLD POLYOMINO BLOCKS
 		if (imprints != null) {
 			for (int i = 0; i < ROWS; i++) {
@@ -404,6 +388,6 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 					g.fillRect(L * j, L * i, L, L);
 				}
 			}
-		}	
+		}
 	}
 }

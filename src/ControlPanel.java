@@ -13,7 +13,9 @@ public class ControlPanel extends JPanel implements ActionListener {
 	private final JButton instructionsButton;
 	private final JButton creditsButton;
 
-	// Constructor
+	/**
+	 * Constructor
+	 */
 	public ControlPanel(JavaArcade t, GameStats g) {
 		game = t;
 		gStats = g;
@@ -48,7 +50,7 @@ public class ControlPanel extends JPanel implements ActionListener {
 		JButton button = (JButton)e.getSource();
 		if (button == startButton) {
 			if (!game.running()) {
-				((JPanel)(game)).requestFocus(); //Required so that panel will respond
+				((JPanel)(game)).requestFocus(); 	// Required so that panel will respond
 				game.startGame();
 				pauseButton.setEnabled(true);
 				stopButton.setEnabled(true);

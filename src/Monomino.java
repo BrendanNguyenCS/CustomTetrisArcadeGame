@@ -12,12 +12,13 @@ public class Monomino extends Polyomino {
 
 	/**
 	 * Constructs a new random monomino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
 	 */
-	public Monomino(int x, int y) { this(x, y,(int)(Math.random()*4)); }
+	public Monomino(int x, int y) { this(x, y,(int)(Math.random() * 4)); }
+
 	/**
 	 * Constructs a new monomino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Monomino(int x, int y, int orientation) {
@@ -26,11 +27,11 @@ public class Monomino extends Polyomino {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
+		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 		
 		// set monomino type & orientations
 		setType(dot);
-		setOrientations(new Block[][] {{new Block(0,1)}, {new Block(0,1)}, {new Block(0,1)}, {new Block(0,1)}});
+		setOrientations(new Block[][] {{new Block(0, 1)}, {new Block(0, 1)}, {new Block(0, 1)}, {new Block(0, 1)}});
 		
 		// set starting orientation
 		if (orientation >= 0 && orientation < 4)

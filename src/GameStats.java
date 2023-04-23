@@ -11,7 +11,9 @@ public class GameStats extends JPanel {
 	private final JLabel yourScoreText;
 	private final JavaArcade game;
 
-	// Constructor
+	/**
+	 * Constructor
+	 */
 	public GameStats(JavaArcade t) {
 		super(new GridLayout(2, 4, 10, 0));
 		setBorder(new EmptyBorder(0, 0, 5, 0));

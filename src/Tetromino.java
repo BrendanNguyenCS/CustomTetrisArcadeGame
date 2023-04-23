@@ -12,12 +12,13 @@ public class Tetromino extends Polyomino {
 
 	/**
 	 * Constructs a new random tetromino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
 	 */
 	public Tetromino(int x, int y) { this(x, y, (int)(Math.random()*7), (int)(Math.random()*4)); }
+
 	/**
 	 * Constructs a new tetromino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Tetromino(int x, int y, int type, int orientation) {
@@ -26,66 +27,56 @@ public class Tetromino extends Polyomino {
 		setY(y);
 		
 		// set color for the shape
-		setColor(new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
+		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 		
 		// set tetromino type & orientations
 		setType(type);
-		if (type == I) {
-			setOrientations(new Block[][] {
-				{new Block(0,1), new Block(1,1), new Block(2,1), new Block(3,1)},
-				{new Block(1,3), new Block(1,2), new Block(1,1), new Block(1,0)},
-				{new Block(3,2), new Block(2,2), new Block(1,2), new Block(0,2)},
-				{new Block(2,0), new Block(2,1), new Block(2,2), new Block(2,3)}
+		switch (type) {
+			case I -> setOrientations(new Block[][]{
+				{new Block(0, 1), new Block(1, 1), new Block(2, 1), new Block(3, 1)},
+				{new Block(1, 3), new Block(1, 2), new Block(1, 1), new Block(1, 0)},
+				{new Block(3, 2), new Block(2, 2), new Block(1, 2), new Block(0, 2)},
+				{new Block(2, 0), new Block(2, 1), new Block(2, 2), new Block(2, 3)}
 			});
-		}
-		else if (type == J) {
-			setOrientations(new Block[][] {
-				{new Block(2,1), new Block(0,2), new Block(1,2), new Block(2,2)},
-				{new Block(1,1), new Block(2,3), new Block(2,2), new Block(2,1)},
-				{new Block(1,2), new Block(3,1), new Block(2,1), new Block(1,1)},
-				{new Block(2,2), new Block(1,0), new Block(1,1), new Block(1,2)}
+			case J -> setOrientations(new Block[][]{
+				{new Block(2, 1), new Block(0, 2), new Block(1, 2), new Block(2, 2)},
+				{new Block(1, 1), new Block(2, 3), new Block(2, 2), new Block(2, 1)},
+				{new Block(1, 2), new Block(3, 1), new Block(2, 1), new Block(1, 1)},
+				{new Block(2, 2), new Block(1, 0), new Block(1, 1), new Block(1, 2)}
 			});
-		}
-		else if (type == L) {
-			setOrientations(new Block[][] {
-				{new Block(1,1), new Block(1,2), new Block(2,2), new Block(3,2)},
-				{new Block(1,2), new Block(2,2), new Block(2,1), new Block(2,0)},
-				{new Block(2,2), new Block(2,1), new Block(1,1), new Block(0,1)},
-				{new Block(2,1), new Block(1,1), new Block(1,2), new Block(1,3)}
+			case L -> setOrientations(new Block[][]{
+				{new Block(1, 1), new Block(1, 2), new Block(2, 2), new Block(3, 2)},
+				{new Block(1, 2), new Block(2, 2), new Block(2, 1), new Block(2, 0)},
+				{new Block(2, 2), new Block(2, 1), new Block(1, 1), new Block(0, 1)},
+				{new Block(2, 1), new Block(1, 1), new Block(1, 2), new Block(1, 3)}
 			});
-		}
-		else if (type == O) {
-			// all orientations are the same (symmetry all around)
-			Block[] orientation_O = new Block[] {
-					new Block(1,1),
-					new Block(2,1),
-					new Block(1,2),
-					new Block(2,2)
-			};
-			setOrientations(new Block[][] {orientation_O, orientation_O, orientation_O, orientation_O});
-		}
-		else if (type == S) {
-			setOrientations(new Block[][] {
-				{new Block(1,1), new Block(2,1), new Block(0,2), new Block(1,2)},
-				{new Block(1,2), new Block(1,1), new Block(2,3), new Block(2,2)},
-				{new Block(2,2), new Block(1,2), new Block(3,1), new Block(2,1)},
-				{new Block(2,1), new Block(2,2), new Block(1,0), new Block(1,1)}
+			case O -> {
+				// all orientations are the same (symmetry all around)
+				Block[] orientation_O = new Block[]{
+						new Block(1, 1),
+						new Block(2, 1),
+						new Block(1, 2),
+						new Block(2, 2)
+				};
+				setOrientations(new Block[][]{orientation_O, orientation_O, orientation_O, orientation_O});
+			}
+			case S -> setOrientations(new Block[][]{
+				{new Block(1, 1), new Block(2, 1), new Block(0, 2), new Block(1, 2)},
+				{new Block(1, 2), new Block(1, 1), new Block(2, 3), new Block(2, 2)},
+				{new Block(2, 2), new Block(1, 2), new Block(3, 1), new Block(2, 1)},
+				{new Block(2, 1), new Block(2, 2), new Block(1, 0), new Block(1, 1)}
 			});
-		}
-		else if (type == T) {
-			setOrientations(new Block[][] {
-				{new Block(1,1), new Block(0,2), new Block(1,2), new Block(2,2)},
-				{new Block(1,2), new Block(2,3), new Block(2,2), new Block(2,1)},
-				{new Block(2,2), new Block(3,1), new Block(2,1), new Block(1,1)},
-				{new Block(2,1), new Block(1,0), new Block(1,1), new Block(1,2)}
+			case T -> setOrientations(new Block[][]{
+				{new Block(1, 1), new Block(0, 2), new Block(1, 2), new Block(2, 2)},
+				{new Block(1, 2), new Block(2, 3), new Block(2, 2), new Block(2, 1)},
+				{new Block(2, 2), new Block(3, 1), new Block(2, 1), new Block(1, 1)},
+				{new Block(2, 1), new Block(1, 0), new Block(1, 1), new Block(1, 2)}
 			});
-		}
-		else if (type == Z) {
-			setOrientations(new Block[][] {
-				{new Block(0,1), new Block(1,1), new Block(1,2), new Block(2,2)},
-				{new Block(1,3), new Block(1,2), new Block(2,2), new Block(2,1)},
-				{new Block(3,2), new Block(2,2), new Block(2,1), new Block(1,1)},
-				{new Block(2,0), new Block(2,1), new Block(1,1), new Block(1,2)}
+			case Z -> setOrientations(new Block[][]{
+				{new Block(0, 1), new Block(1, 1), new Block(1, 2), new Block(2, 2)},
+				{new Block(1, 3), new Block(1, 2), new Block(2, 2), new Block(2, 1)},
+				{new Block(3, 2), new Block(2, 2), new Block(2, 1), new Block(1, 1)},
+				{new Block(2, 0), new Block(2, 1), new Block(1, 1), new Block(1, 2)}
 			});
 		}
 		

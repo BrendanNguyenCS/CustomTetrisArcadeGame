@@ -12,12 +12,13 @@ public class Domino extends Polyomino {
 
 	/**
 	 * Constructs a new random domino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
 	 */
-	public Domino(int x, int y) { this(x, y, (int)(Math.random()*4)); }
+	public Domino(int x, int y) { this(x, y, (int)(Math.random() * 4)); }
+
 	/**
 	 * Constructs a new domino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 <code>Block</code>s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Domino(int x, int y, int orientation) {
