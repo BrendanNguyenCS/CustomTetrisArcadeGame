@@ -40,7 +40,14 @@ public class GameStats extends JPanel {
 		yourScoreText.setText(" Your Final Score: " + points);
 		if(points > Integer.parseInt(game.getHighScore())) {
 			yourScoreText.setForeground(Color.BLUE);
-			String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
+			String s = (String)JOptionPane.showInputDialog(this,
+														   "You are the new high scorer. Congratulations!\n Enter your name: ",
+														   "High Score",
+														   JOptionPane.PLAIN_MESSAGE,
+														   null,
+														   null,
+														   "name"
+			);
 			JOptionPane.showMessageDialog(null, "You are the new high scorer!");
 		}
 		else

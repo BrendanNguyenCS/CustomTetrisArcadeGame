@@ -37,10 +37,12 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	private Scanner reader;
 	/** The actively falling polyomino */
 	private Polyomino t;
-	/** Contains representations for all the fallen polyomino blocks (represented by {@link Color}s) */
+	/** Contains representations for all the fallen polyomino blocks (represented by {@link Color Colors}) */
 	private ArrayList<Color[]> imprints;
 
-	public TetrisBoard(int width, int height) { this(width, height, Color.LIGHT_GRAY); }
+	public TetrisBoard(int width, int height) {
+		this(width, height, Color.LIGHT_GRAY);
+	}
 
 	public TetrisBoard(int width, int height, Color color) {
 		running = false;
@@ -61,22 +63,25 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 
 	////////////////////////////////// JAVAARCADE IMPLEMENTATION /////////////////////////////////////////////////
 
-	public boolean running() { return running; }
+	public boolean running() {
+		return running;
+	}
 
 	public void startGame() {
-		if (running)
+		if (running) {
 			return;
+		}
 		if (paused) {
 			paused = false;
 			timerTimer.start();
-		}
-		else if (!running) {
+		} else if (!running) {
 			score = 0;
 			delay = DELAY;
 
 			imprints = new ArrayList<>();
-			for (int i = 0; i < ROWS; i++)
+			for (int i = 0; i < ROWS; i++) {
 				imprints.add(new Color[COLUMNS]);
+			}
 
 			newPolyomino();            	// creates the first piece
 			repaint();                	// paints everything for the first time
@@ -86,7 +91,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		running = true;
 	}
 
-	public String getGameName() { return "UrBoiTetris"; }
+	public String getGameName() {
+		return "UrBoiTetris";
+	}
 
 	public void pauseGame() {
 		timer.stop();
@@ -99,7 +106,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		return "UP: rotate clockwise\nLEFT/RIGHT: move left/right\nDOWN: speed up downward movement";
 	}
 
-	public String getCredits() { return "Sebastian Harder\nBrendan Nguyen"; }
+	public String getCredits() {
+		return "Sebastian Harder\nBrendan Nguyen";
+	}
 
 	public String getHighScore() {
 		try {
@@ -109,8 +118,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			e.printStackTrace();
 		}
 
-		while (reader.hasNextLine())
+		while (reader.hasNextLine()) {
 			highScore = reader.nextLine();
+		}
 
 		if (Integer.parseInt(highScore) < score) {
 			writer.println();
@@ -129,12 +139,16 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		paused = false;
 	}
 
-	public int getPoints() { return score; }
+	public int getPoints() {
+		return score;
+	}
 
 	///////////////////////////// LISTENER IMPLEMENTATION ///////////////////////////////////////////////////////////
 
 	/** Action that happens every time {@link #timer} fires */
-	public void actionPerformed(ActionEvent e) { moveDown(); }
+	public void actionPerformed(ActionEvent e) {
+		moveDown();
+	}
 
 	/**
 	 * Invoked by {@link #timerTimer}.<br />
@@ -142,9 +156,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	 */
 	private class TimerTimerListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			delay *= .75;                                                // 3/4 less delay (4/3 faster)
+			delay = (int)((double)delay * 0.75);								// 3/4 less delay (4/3 faster)
 			timer.setDelay(delay);
-			timerTimer.setDelay((int)(timerTimer.getDelay()*1.5));        // longer time until next speed-up
+			timerTimer.setDelay((int)(timerTimer.getDelay() * 1.5));       		// longer time until next speed-up
 		}
 	}
 
@@ -152,10 +166,10 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	private boolean firstPress = true;
 
 	public void keyPressed(KeyEvent e) {
-		if (running)
+		if (running) {
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP -> rotate();                                      // rotate polyomino
-				case KeyEvent.VK_DOWN -> {                                            // speed up polyomino
+				case KeyEvent.VK_UP -> rotate();                            	// rotate polyomino
+				case KeyEvent.VK_DOWN -> {                                      // speed up polyomino
 					if (firstPress) {
 						moveDown();
 						firstPress = false;
@@ -165,15 +179,16 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 				case KeyEvent.VK_LEFT -> moveLeft();                            // move polyomino left
 				case KeyEvent.VK_RIGHT -> moveRight();                          // move polyomino right
 				case KeyEvent.VK_SPACE -> pauseGame();                          // pause game
-				case KeyEvent.VK_ESCAPE -> System.exit(0);                  // exit entire program
-				default -> {}
-			}
-		else
-			switch (e.getKeyCode()) {
-				case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> startGame();          // start game
 				case KeyEvent.VK_ESCAPE -> System.exit(0);               // exit entire program
-				default -> {}
+				default -> { }
 			}
+		} else {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> startGame();       // start game
+				case KeyEvent.VK_ESCAPE -> System.exit(0);               // exit entire program
+				default -> { }
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -202,8 +217,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 				t.setX(xInitial);
 				t.setY(yInitial);
 			}
-		} else    // if can't fit on bottom, un-rotate to original
+		} else {    // if can't fit on bottom, un-rotate to original
 			t.rotateCCW();
+		}
 		repaint();
 	}
 
@@ -216,28 +232,33 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		int minimum = t.getX() + t.getShape()[0].getX();        // x of first block (can be any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
-			if(x < minimum)
+			if(x < minimum) {
 				minimum = x;
+			}
 		}
-		for (int i = 0; i > minimum; i--)
+		for (int i = 0; i > minimum; i--) {
 			t.moveRight();
+		}
 
 		// RIGHT SIDE
 		int maximum = minimum;                                // x of block w/minimum x (can be x of any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
-			if(x > maximum)
+			if(x > maximum) {
 				maximum = x;
+			}
 		}
-		for (int i = 0; i < maximum - (COLUMNS-1); i++)
+		for (int i = 0; i < maximum - (COLUMNS-1); i++) {
 			t.moveLeft();
+		}
 
 		// BOTTOM SIDE
 		int maximumY = t.getY() + t.getShape()[0].getY();    // y of first block (can be any block to start)
 		for(Block b : t.getShape()) {
 			int y = t.getY() + b.getY();
-			if(y > maximumY)
+			if(y > maximumY) {
 				maximumY = y;
+			}
 		}
 		return maximumY <= ROWS - 1;
 	}
@@ -248,8 +269,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	 */
 	public void moveLeft() {
 		t.moveLeft();
-		if (!checkValidPosition())
+		if (!checkValidPosition()) {
 			t.moveRight();
+		}
 		repaint();
 	}
 
@@ -259,8 +281,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	 */
 	public void moveRight() {
 		t.moveRight();
-		if (!checkValidPosition())
+		if (!checkValidPosition()) {
 			t.moveLeft();
+		}
 		repaint();
 	}
 
@@ -289,14 +312,17 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			int x = b.getX() + t.getX();
 			int y = b.getY() + t.getY();
 
-			if (x < 0 || x >= COLUMNS || y >= ROWS)        // if block(s) out of bounds (excluding top)
+			if (x < 0 || x >= COLUMNS || y >= ROWS) {     // if block(s) out of bounds (excluding top)
 				return false;
-			if (y < 0)                                    // skip block if above top of board
+			}
+			if (y < 0) {                                // skip block if above top of board
 				continue;
+			}
 
 			Color space = imprints.get(y)[x];
-			if (space != null)
+			if (space != null) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -309,8 +335,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			int x = b.getX() + t.getX();
 			int y = b.getY() + t.getY();
 
-			if (y >= 0 && y < ROWS && x >= 0 && x < COLUMNS)
+			if (y >= 0 && y < ROWS && x >= 0 && x < COLUMNS) {
 				imprints.get(y)[x] = t.getColor();
+			}
 		}
 	}
 
@@ -319,8 +346,9 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			Color[] row = imprints.get(i);
 			int filledSpaces = 0;
 			for (Color color : row) {
-				if (color != null)
+				if (color != null) {
 					filledSpaces++;
+				}
 			}
 			if (filledSpaces == COLUMNS) {
 				score += COLUMNS;
@@ -338,21 +366,23 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	 */
 	private Polyomino newPolyomino() {
 		int i = (int)(Math.random() * 50) + 1;
-		if (i < 3)
-			t = new Monomino(COLUMNS/2 - 1, 0);
-		else if (i < 3 + 6)
-			t = new Domino(COLUMNS/2 - 1, 0);
-		else if (i < 3 + 6 + 13)
-			t = new Triomino(COLUMNS/2 - 2, -1);
-		else if (i < 3 + 6 + 13 + 14)
-			t = new Tetromino(COLUMNS/2 - 2, -2);
-		else if (i < 3 + 6 + 13 + 14 + 13)
-			t = new Pentomino(COLUMNS/2 - 3, -3);
-		else
-			t = new Mysteryomino(COLUMNS/2 - 4, -4);
+		if (i < 3) {
+			t = new Monomino(COLUMNS / 2 - 1, 0);
+		} else if (i < 3 + 6) {
+			t = new Domino(COLUMNS / 2 - 1, 0);
+		} else if (i < 3 + 6 + 13) {
+			t = new Triomino(COLUMNS / 2 - 2, -1);
+		} else if (i < 3 + 6 + 13 + 14) {
+			t = new Tetromino(COLUMNS / 2 - 2, -2);
+		} else if (i < 3 + 6 + 13 + 14 + 13) {
+			t = new Pentomino(COLUMNS / 2 - 3, -3);
+		} else {
+			t = new Mysteryomino(COLUMNS / 2 - 4, -4);
+		}
 
-		if (!checkValidPosition())
+		if (!checkValidPosition()) {
 			endGame();
+		}
 		return t;
 	}
 
@@ -367,23 +397,27 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// STATS
-		if (t != null)
+		if (t != null) {
 			g.drawString("Currently falling: \"" + t.getName() + "\" " + t.getPolyomino(), 30, 30);
-		if (timer.isRunning())
+		}
+		if (timer.isRunning()) {
 			g.drawString("Current speed: " + delay + " ms/step", 30, 50);
+		}
 		g.drawString("Score: " + score, 30, 70);
 		// DRAW ACTIVE POLYOMINO
 		if (t != null) {
 			g.setColor(t.getColor());
-			for (Block b : t.getShape())
+			for (Block b : t.getShape()) {
 				g.fillRect(L * (t.getX() + b.getX()), L * (t.getY() + b.getY()), L, L);
+			}
 		}
 		// DRAW OLD POLYOMINO BLOCKS
 		if (imprints != null) {
 			for (int i = 0; i < ROWS; i++) {
 				for (int j = 0; j < COLUMNS; j++) {
-					if (imprints.get(i)[j] == null)
+					if (imprints.get(i)[j] == null) {
 						continue;
+					}
 					g.setColor(imprints.get(i)[j]);
 					g.fillRect(L * j, L * i, L, L);
 				}

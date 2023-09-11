@@ -13,9 +13,11 @@ public class Pentomino extends Polyomino {
 
 	/**
 	 * Constructs a new random pentomino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.
 	 */
-	public Pentomino(int x, int y) { this(x, y, (int)(Math.random() * 18), (int)(Math.random() * 4)); }
+	public Pentomino(int x, int y) {
+		this(x, y, (int)(Math.random() * 18), (int)(Math.random() * 4));
+	}
 
 	/**
 	 * Constructs a new pentomino, based on the type.<br />
@@ -28,7 +30,11 @@ public class Pentomino extends Polyomino {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+		setColor(new Color(
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256)
+		));
 		
 		// set pentomino type & orientations
 		setType(type);
@@ -149,10 +155,11 @@ public class Pentomino extends Polyomino {
 		}
 		
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4)
+		if (orientation >= 0 && orientation < 4) {
 			setOrientation(orientation);
-		else
+		} else {
 			setOrientation(UP);
+		}
 	}
 	
 	public String getName() {
@@ -181,25 +188,7 @@ public class Pentomino extends Polyomino {
 		return name;
 	}
 	
-	public String getPolyomino() { return "pentomino"; }
-	
-	public String toString() {
-		StringBuilder ret = new StringBuilder("Block coordinates of \"");
-		ret.append(getName());
-		ret.append("\" pentomino (currently oriented ");
-		switch (getOrientation()) {
-			case UP -> ret.append("upright");
-			case LEFT -> ret.append("on its left");
-			case DOWN -> ret.append("upside down");
-			case RIGHT -> ret.append("on its right");
-		}
-		ret.append("):\n");
-		Block[] pentomino = getShape();
-		for (int i = 0; i < pentomino.length; i++) {
-			ret.append("(").append(getX() + pentomino[i].getX()).append(", ").append(getY() + pentomino[i].getY()).append(")");
-			if (i < pentomino.length - 1)
-				ret.append(", ");
-		}
-		return ret.toString();
+	public String getPolyomino() {
+		return "pentomino";
 	}
 }

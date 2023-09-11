@@ -57,15 +57,13 @@ public class ControlPanel extends JPanel implements ActionListener {
 				startButton.setText("Start");
 				startButton.setEnabled(true);
 			}
-		}
-		else if(button == pauseButton) {
+		} else if(button == pauseButton) {
 			game.pauseGame();
 			startButton.setText("Resume");
 			startButton.setEnabled(true);
 			pauseButton.setEnabled(true);
 			repaint();
-		}
-		else if(button == stopButton) {
+		} else if(button == stopButton) {
 			game.stopGame();
 			gStats.update(game.getPoints());
 			gStats.repaint();
@@ -74,12 +72,10 @@ public class ControlPanel extends JPanel implements ActionListener {
 			stopButton.setEnabled(true);
 			pauseButton.setEnabled(true);
 			repaint();
-		}  
-		else if(button == creditsButton) {
+		}  else if(button == creditsButton) {
 			String credits = game.getCredits();
 			JOptionPane.showMessageDialog(this, credits, "Game Credits", JOptionPane.PLAIN_MESSAGE);
-		}      
-		else if(button == instructionsButton) {
+		}  else if(button == instructionsButton) {
 			String instructions = game.getInstructions();
 			JOptionPane.showMessageDialog(this, instructions, "Game Rules", JOptionPane.PLAIN_MESSAGE);
 		}

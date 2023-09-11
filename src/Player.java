@@ -33,11 +33,19 @@ public class Player {
 		points = 0;
 	}
 
-    public int getScore() { return points; }
+    public int getScore() {
+		return points;
+	}
 
-	public void setScore(int points) { this.points = points; }
+	public void setScore(int points) {
+		this.points = points;
+	}
 
-	public void addScore(int amt) { points += amt; }
+	public void addScore(int amt) {
+		points += amt;
+	}
 
-	public void resetScore() { points = 0; }
+	public void resetScore() {
+		points = 0;
+	}
 }

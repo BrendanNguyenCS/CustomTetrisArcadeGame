@@ -7,7 +7,7 @@ import javax.swing.Timer;
  * A mysteromino object to be used in Tetris. Composed of 1 block.
  *
  * @author Brendan N
- * @version 1.00 2018/03/20
+ * @version 2.00 2023/09/10
  */
 public class Mysteryomino extends Polyomino implements ActionListener {
 	private final Timer timer;
@@ -16,13 +16,13 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 
 	/**
 	 * Constructs a new random mysteromino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.
 	 */
 	public Mysteryomino(int x, int y) { this(x, y,(int)(Math.random() * 4)); }
 
 	/**
 	 * Constructs a new mysteromino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b>
 	 */
 	public Mysteryomino(int x, int y, int orientation) {
@@ -34,7 +34,11 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+		setColor(new Color(
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256)
+		));
 
 		// set mysteromino type & orientations
 		setType(smiley);
@@ -47,37 +51,26 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		});
 
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4)
+		if (orientation >= 0 && orientation < 4) {
 			setOrientation(orientation);
-		else
+		} else {
 			setOrientation(UP);
+		}
 	}
 
-	public String getName() { return "smiley"; }
+	public String getName() {
+		return "smiley";
+	}
 
-	public String getPolyomino() { return "mysteryomino"; }
-
-	public String toString() {
-		StringBuilder ret = new StringBuilder("Block coordinates of ");
-		//ret += getName();
-		ret.append("mysteryomino (currently oriented ");
-		switch (getOrientation()) {
-			case UP -> ret.append("upright");
-			case LEFT -> ret.append("on its left");
-			case DOWN -> ret.append("upside down");
-			case RIGHT -> ret.append("on its right");
-		}
-		ret.append("):\n");
-		Block[] mysteryomino = getShape();
-		for (int i = 0; i < mysteryomino.length; i++) {
-			ret.append("(").append(getX() + mysteryomino[i].getX()).append(", ").append(getY() + mysteryomino[i].getY()).append(")");
-			if (i < mysteryomino.length - 1)
-				ret.append(", ");
-		}
-		return ret.toString();
+	public String getPolyomino() {
+		return "mysteryomino";
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+		setColor(new Color(
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256)
+		));
 	}
 }

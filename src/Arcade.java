@@ -25,7 +25,10 @@ public class Arcade extends JFrame {
 
   public static void main(String[] args) {
     Arcade window = new Arcade();
-    window.setBounds(100, 100, TetrisBoard.L*TetrisBoard.COLUMNS + 30, TetrisBoard.L*TetrisBoard.ROWS + 160);
+    window.setBounds(100, 100,
+                     TetrisBoard.L * TetrisBoard.COLUMNS + 30,
+                     TetrisBoard.L * TetrisBoard.ROWS + 160
+    );
     window.setDefaultCloseOperation(EXIT_ON_CLOSE);
     window.setVisible(true);
   }

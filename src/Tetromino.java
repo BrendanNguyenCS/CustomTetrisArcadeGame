@@ -12,13 +12,15 @@ public class Tetromino extends Polyomino {
 
 	/**
 	 * Constructs a new random tetromino.<br />
-	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block}s.
+	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.
 	 */
-	public Tetromino(int x, int y) { this(x, y, (int)(Math.random()*7), (int)(Math.random()*4)); }
+	public Tetromino(int x, int y) {
+		this(x, y, (int)(Math.random() * 7), (int)(Math.random() * 4));
+	}
 
 	/**
 	 * Constructs a new tetromino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Tetromino(int x, int y, int type, int orientation) {
@@ -27,7 +29,11 @@ public class Tetromino extends Polyomino {
 		setY(y);
 		
 		// set color for the shape
-		setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+		setColor(new Color(
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256)
+		));
 		
 		// set tetromino type & orientations
 		setType(type);
@@ -81,10 +87,11 @@ public class Tetromino extends Polyomino {
 		}
 		
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4)
+		if (orientation >= 0 && orientation < 4) {
 			setOrientation(orientation);
-		else
+		} else {
 			setOrientation(UP);
+		}
 	}
 	
 	public String getName() {
@@ -102,25 +109,7 @@ public class Tetromino extends Polyomino {
 		return name;
 	}
 	
-	public String getPolyomino() { return "tetromino"; }
-	
-	public String toString() {
-		StringBuilder ret = new StringBuilder("Block coordinates of \"");
-		ret.append(getName());
-		ret.append("\" tetromino (currently oriented ");
-		switch (getOrientation()) {
-			case UP -> ret.append("upright");
-			case LEFT -> ret.append("on its left");
-			case DOWN -> ret.append("upside down");
-			case RIGHT -> ret.append("on its right");
-		}
-		ret.append("):\n");
-		Block[] tetromino = getShape();
-		for (int i = 0; i < tetromino.length; i++) {
-			ret.append("(").append(getX() + tetromino[i].getX()).append(", ").append(getY() + tetromino[i].getY()).append(")");
-			if (i < tetromino.length - 1)
-				ret.append(", ");
-		}
-		return ret.toString();
+	public String getPolyomino() {
+		return "tetromino";
 	}
 }
