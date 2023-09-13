@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * A tetromino object to be used in Tetris. Composed of 4 blocks.
@@ -9,6 +11,10 @@ import java.awt.Color;
 public class Tetromino extends Polyomino {
 	/** Final ints representing names of tetrominoes */
 	public final int I = 0,  J = 1, L = 2, O = 3, S = 4, T = 5, Z = 6;
+	/**
+	 * Logging to replace existing error handling
+	 */
+	private Logger logger;
 
 	/**
 	 * Constructs a new random tetromino.<br />
@@ -16,6 +22,7 @@ public class Tetromino extends Polyomino {
 	 */
 	public Tetromino(int x, int y) {
 		this(x, y, (int)(Math.random() * 7), (int)(Math.random() * 4));
+		logger = Logger.getLogger("Tetromino");
 	}
 
 	/**
@@ -24,6 +31,8 @@ public class Tetromino extends Polyomino {
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Tetromino(int x, int y, int type, int orientation) {
+		logger = Logger.getLogger("Tetromino");
+
 		// set x and y for the shape
 		setX(x);
 		setY(y);
@@ -95,16 +104,20 @@ public class Tetromino extends Polyomino {
 	}
 	
 	public String getName() {
-		String name;
+		String name = getPolyomino();
 		switch (getType()) {
-			case I -> name = "I";
-			case J -> name = "J";
-			case L -> name = "L";
-			case O -> name = "O";
-			case S -> name = "S";
-			case T -> name = "T";
-			case Z -> name = "Z";
-			default -> name = "none";
+			case I -> name += " I";
+			case J -> name += " J";
+			case L -> name += " L";
+			case O -> name += " O";
+			case S -> name += " S";
+			case T -> name += " T";
+			case Z -> name += " Z";
+			default -> {
+				// this should not happen but is covered
+				logger.log(Level.WARNING, "A type couldn't be found for this tetromino");
+				name = "unknown " + name;
+			}
 		}
 		return name;
 	}

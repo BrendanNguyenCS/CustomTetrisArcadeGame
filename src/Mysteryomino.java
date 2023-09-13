@@ -18,7 +18,9 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 	 * Constructs a new random mysteromino.<br />
 	 * Sets color and starting orientation randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.
 	 */
-	public Mysteryomino(int x, int y) { this(x, y,(int)(Math.random() * 4)); }
+	public Mysteryomino(int x, int y) {
+		this(x, y,(int)(Math.random() * 4));
+	}
 
 	/**
 	 * Constructs a new mysteromino, based on the type.<br />
@@ -44,10 +46,14 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		setType(smiley);
 
 		setOrientations(new Block[][] {
-				{new Block(1, 1), new Block(3, 1), new Block(1, 3), new Block(3, 3), new Block(1, 4), new Block(2, 4), new Block(3, 4)},
-				{new Block(1, 3), new Block(1, 1), new Block(3, 3), new Block(3, 1), new Block(4, 3), new Block(4, 2), new Block(4, 1)},
-				{new Block(3, 3), new Block(1, 3), new Block(3, 1), new Block(1, 1), new Block(3, 0), new Block(2, 0), new Block(1, 0)},
-				{new Block(3, 1), new Block(3, 3), new Block(1, 1), new Block(1, 3), new Block(0, 1), new Block(0, 2), new Block(0, 3)}
+				{new Block(1, 1), new Block(3, 1), new Block(1, 3), new Block(3, 3),
+						new Block(1, 4), new Block(2, 4), new Block(3, 4)},
+				{new Block(1, 3), new Block(1, 1), new Block(3, 3), new Block(3, 1),
+						new Block(4, 3), new Block(4, 2), new Block(4, 1)},
+				{new Block(3, 3), new Block(1, 3), new Block(3, 1), new Block(1, 1),
+						new Block(3, 0), new Block(2, 0), new Block(1, 0)},
+				{new Block(3, 1), new Block(3, 3), new Block(1, 1), new Block(1, 3),
+						new Block(0, 1), new Block(0, 2), new Block(0, 3)}
 		});
 
 		// set starting orientation
@@ -59,7 +65,7 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 	}
 
 	public String getName() {
-		return "smiley";
+		return getPolyomino() + " smiley";
 	}
 
 	public String getPolyomino() {

@@ -53,7 +53,7 @@ public class Monomino extends Polyomino {
 	}
 	
 	public String getName() {
-		return "dot";
+		return getPolyomino() + " dot";
 	}
 	
 	public String getPolyomino() {

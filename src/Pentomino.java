@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * A pentomino object to be used in Tetris. Composed of 5 blocks.
@@ -10,6 +12,10 @@ public class Pentomino extends Polyomino {
 	/** Final ints representing names of pentominoes */
 	public final int F = 0, _7 = 1, I = 2, L = 3, J = 4, N = 5, S = 6, P = 7, Q = 8,
 			T = 9, U = 10, V = 11, W = 12, X = 13, Y = 14, _L = 15, Z = 16, _S = 17;
+	/**
+	 * Logging to replace existing error handling
+	 */
+	private Logger logger;
 
 	/**
 	 * Constructs a new random pentomino.<br />
@@ -17,6 +23,7 @@ public class Pentomino extends Polyomino {
 	 */
 	public Pentomino(int x, int y) {
 		this(x, y, (int)(Math.random() * 18), (int)(Math.random() * 4));
+		logger = Logger.getLogger("Pentomino");
 	}
 
 	/**
@@ -25,6 +32,8 @@ public class Pentomino extends Polyomino {
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b>
 	 */
 	public Pentomino(int x, int y, int type, int orientation) {
+		logger = Logger.getLogger("Pentomino");
+
 		// set x and y for the shape
 		setX(x);
 		setY(y);
@@ -163,27 +172,31 @@ public class Pentomino extends Polyomino {
 	}
 	
 	public String getName() {
-		String name;
+		String name = getPolyomino();
 		switch (getType()) {
-			case F -> name = "F";
-			case _7 -> name = "7";
-			case I -> name = "I";
-			case L -> name = "L";
-			case J -> name = "J";
-			case N -> name = "N";
-			case S -> name = "S";
-			case P -> name = "P";
-			case Q -> name = "Q";
-			case T -> name = "T";
-			case U -> name = "U";
-			case V -> name = "V";
-			case W -> name = "W";
-			case X -> name = "X";
-			case Y -> name = "Y";
-			case _L -> name = "lambda";
-			case Z -> name = "Z";
-			case _S -> name = "integral";
-			default -> name = "none";
+			case F -> name += " F";
+			case _7 -> name += " 7";
+			case I -> name += " I";
+			case L -> name += " L";
+			case J -> name += " J";
+			case N -> name += " N";
+			case S -> name += " S";
+			case P -> name += " P";
+			case Q -> name += " Q";
+			case T -> name += " T";
+			case U -> name += " U";
+			case V -> name += " V";
+			case W -> name += " W";
+			case X -> name += " X";
+			case Y -> name += " Y";
+			case _L -> name += " lambda";
+			case Z -> name += " Z";
+			case _S -> name += " integral";
+			default -> {
+				// this should not happen but is covered
+				logger.log(Level.WARNING, "A type couldn't be found for this pentomino");
+				name = "unknown " + name;
+			}
 		}
 		return name;
 	}

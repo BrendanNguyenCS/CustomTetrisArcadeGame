@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * A triomino object to be used in Tetris. Composed of 3 blocks.
@@ -9,6 +11,10 @@ import java.awt.Color;
 public class Triomino extends Polyomino {
 	/** Final ints representing names of triominoes */
 	public final int I = 0,  L= 1;
+	/**
+	 * Logging to replace existing error handling
+	 */
+	private Logger logger;
 
 	/**
 	 * Constructs a new random triomino.<br />
@@ -16,6 +22,7 @@ public class Triomino extends Polyomino {
 	 */
 	public Triomino(int x, int y) {
 		this(x, y, (int)(Math.random() * 2), (int)(Math.random() * 4));
+		logger = Logger.getLogger("Triomino");
 	}
 
 	/**
@@ -24,6 +31,8 @@ public class Triomino extends Polyomino {
 	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
 	 */
 	public Triomino(int x, int y, int type, int orientation) {
+		logger = Logger.getLogger("Triomino");
+
 		// set x and y for the shape
 		setX(x);
 		setY(y);
@@ -61,11 +70,15 @@ public class Triomino extends Polyomino {
 	}
 	
 	public String getName() {
-		String name;
+		String name = getPolyomino();
 		switch (getType()) {
-			case I -> name = "I";
-			case L -> name = "L";
-			default -> name = "none";
+			case I -> name += " I";
+			case L -> name += " L";
+			default -> {
+				// this should not happen but is covered
+				logger.log(Level.WARNING, "A type couldn't be found for this triomino");
+				name = "unknown " + name;
+			}
 		}
 		return name;
 	}

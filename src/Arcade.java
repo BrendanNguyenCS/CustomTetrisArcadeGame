@@ -6,7 +6,7 @@ public class Arcade extends JFrame {
   public Arcade() {
     super("AP Java Arcade");
 
-    JavaArcade game = new TetrisBoard(TetrisBoard.L*TetrisBoard.COLUMNS, 450);
+    JavaArcade game = new TetrisBoard(TetrisBoard.L * TetrisBoard.COLUMNS, 450);
     // Passing in a JavaArcade, therefore I know I can call getHighScore(), getScore()
     GameStats display = new GameStats(game);
     // Also passing in JavaArcade to ControlPanel, I know you will respond to buttons
@@ -33,4 +33,3 @@ public class Arcade extends JFrame {
     window.setVisible(true);
   }
 }
-

@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * @author Sebastian H & Brendan N
@@ -39,9 +41,14 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	private Polyomino t;
 	/** Contains representations for all the fallen polyomino blocks (represented by {@link Color Colors}) */
 	private ArrayList<Color[]> imprints;
+	/**
+	 * Logging to replace existing error handling
+	 */
+	private Logger logger;
 
 	public TetrisBoard(int width, int height) {
 		this(width, height, Color.LIGHT_GRAY);
+		logger = Logger.getLogger("CustomTetrisArcadeGame");
 	}
 
 	public TetrisBoard(int width, int height, Color color) {
@@ -74,7 +81,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		if (paused) {
 			paused = false;
 			timerTimer.start();
-		} else if (!running) {
+		} else {
 			score = 0;
 			delay = DELAY;
 
@@ -115,7 +122,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			writer = new PrintWriter(new FileWriter("highScores.txt", true));
 			reader = new Scanner(new File("highScores.txt"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.toString());
 		}
 
 		while (reader.hasNextLine()) {
@@ -180,13 +187,15 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 				case KeyEvent.VK_RIGHT -> moveRight();                          // move polyomino right
 				case KeyEvent.VK_SPACE -> pauseGame();                          // pause game
 				case KeyEvent.VK_ESCAPE -> System.exit(0);               // exit entire program
-				default -> { }
+				default -> logger.log(Level.WARNING,
+									  "An invalid key was pressed. Moving on.");
 			}
 		} else {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE, KeyEvent.VK_ENTER -> startGame();       // start game
 				case KeyEvent.VK_ESCAPE -> System.exit(0);               // exit entire program
-				default -> { }
+				default -> logger.log(Level.INFO,
+									  "Neither expected key was pressed. Game will continue.");
 			}
 		}
 	}
@@ -232,7 +241,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		int minimum = t.getX() + t.getShape()[0].getX();        // x of first block (can be any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
-			if(x < minimum) {
+			if (x < minimum) {
 				minimum = x;
 			}
 		}
@@ -241,22 +250,22 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		}
 
 		// RIGHT SIDE
-		int maximum = minimum;                                // x of block w/minimum x (can be x of any block to start)
+		int maximum = minimum;                                // x of block w/ minimum x (can be x of any block to start)
 		for (Block b : t.getShape()) {
 			int x = t.getX() + b.getX();
-			if(x > maximum) {
+			if (x > maximum) {
 				maximum = x;
 			}
 		}
-		for (int i = 0; i < maximum - (COLUMNS-1); i++) {
+		for (int i = 0; i < maximum - (COLUMNS - 1); i++) {
 			t.moveLeft();
 		}
 
 		// BOTTOM SIDE
 		int maximumY = t.getY() + t.getShape()[0].getY();    // y of first block (can be any block to start)
-		for(Block b : t.getShape()) {
+		for (Block b : t.getShape()) {
 			int y = t.getY() + b.getY();
-			if(y > maximumY) {
+			if (y > maximumY) {
 				maximumY = y;
 			}
 		}
@@ -312,10 +321,10 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 			int x = b.getX() + t.getX();
 			int y = b.getY() + t.getY();
 
-			if (x < 0 || x >= COLUMNS || y >= ROWS) {     // if block(s) out of bounds (excluding top)
+			if (x < 0 || x >= COLUMNS || y >= ROWS) {     	// if block(s) out of bounds (excluding top)
 				return false;
 			}
-			if (y < 0) {                                // skip block if above top of board
+			if (y < 0) {                                	// skip block if above top of board
 				continue;
 			}
 
@@ -368,13 +377,13 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 		int i = (int)(Math.random() * 50) + 1;
 		if (i < 3) {
 			t = new Monomino(COLUMNS / 2 - 1, 0);
-		} else if (i < 3 + 6) {
+		} else if (i < 9) {										// 3 + 6
 			t = new Domino(COLUMNS / 2 - 1, 0);
-		} else if (i < 3 + 6 + 13) {
+		} else if (i < 22) {									// 3 + 6 + 13
 			t = new Triomino(COLUMNS / 2 - 2, -1);
-		} else if (i < 3 + 6 + 13 + 14) {
+		} else if (i < 36) {									// 3 + 6 + 13 + 14
 			t = new Tetromino(COLUMNS / 2 - 2, -2);
-		} else if (i < 3 + 6 + 13 + 14 + 13) {
+		} else if (i < 49) {									// 3 + 6 + 13 + 14 + 13
 			t = new Pentomino(COLUMNS / 2 - 3, -3);
 		} else {
 			t = new Mysteryomino(COLUMNS / 2 - 4, -4);
