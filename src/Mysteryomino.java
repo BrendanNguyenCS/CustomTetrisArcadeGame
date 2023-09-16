@@ -10,8 +10,9 @@ import javax.swing.Timer;
  * @version 2.00 2023/09/10
  */
 public class Mysteryomino extends Polyomino implements ActionListener {
-	private final Timer timer;
-	/** Final ints representing names of mysterominoes */
+	/**
+	 * Final ints representing names of mysteromino
+	 */
 	public final int smiley = 0;
 
 	/**
@@ -25,10 +26,10 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 	/**
 	 * Constructs a new mysteromino, based on the type.<br />
 	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
-	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b>
+	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to {@link #UP}.</b>
 	 */
 	public Mysteryomino(int x, int y, int orientation) {
-		timer = new Timer(1000, this);
+		Timer timer = new Timer(1000, this);
 		timer.start();
 
 		// set x and y for the shape

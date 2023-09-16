@@ -7,8 +7,10 @@ import java.awt.Color;
  * @version 1.00 2018/03/20
  */
 public abstract class Polyomino {
-	/** Position of the top left corner of the {@link Polyomino} canvas on the {@link TetrisBoard}<br />
-	 * (in TetrisBoard.L units, not pixels) */
+	/**
+	 * Position of the top left corner of the {@link Polyomino} canvas on the {@link TetrisBoard}<br />
+	 * (in {@link TetrisBoard#L} units, not pixels)
+	 */
 	private int x, y;
 	/**
 	 * Integers representing current orientation of the polyomino<br/>
@@ -20,12 +22,17 @@ public abstract class Polyomino {
 	public final int DOWN = 2;
 	public final int RIGHT = 3;
 	/**
-	 * 2D {@link Block} array (4*n) that holds the 4 orientations (UP, LEFT, DOWN, RIGHT) for this tetromino.
-	 * "Orientations" themselves are the polyomino {@link Block Blocks} put together.
+	 * 2D {@link Block} array (4*n) that holds the 4 orientations ({@link #UP}, {@link #LEFT}, {@link #DOWN},
+	 * {@link #RIGHT}) for this polyomino. "Orientations" themselves are the polyomino {@link Block Blocks} put together.
 	 */
 	private Block[][] allOrientations;
-	/** Integer representing the type of polyomino */
+	/**
+	 * Integer representing the type of polyomino
+	 */
 	private int type;
+	/**
+	 * The color of this Polyomino
+	 */
 	private Color color;
 
 	public void setX(int x) {
@@ -52,29 +59,38 @@ public abstract class Polyomino {
 		y++;
 	}
 
-	/** Rotates the tetromino counterclockwise (left).<br />Changes {@link #currentOrientation} accordingly. If orientation increases past RIGHT (3), reset to UP (0). */
+	/**
+	 * Rotates the polyomino counterclockwise (left).<br />Changes {@link #currentOrientation} accordingly.
+	 * If orientation increases past {@link #RIGHT}, reset to {@link #UP}.
+	 */
 	public void rotateCCW() {
 		currentOrientation = currentOrientation >= 3 ? UP : --currentOrientation;
 	}
 
-	/** Rotates the tetromino clockwise (right).<br />Changes {@link #currentOrientation} accordingly. If orientation decreases past UP (0), reset to RIGHT (3). */
+	/**
+	 * Rotates the polyomino clockwise (right).<br />Changes {@link #currentOrientation} accordingly.
+	 * If orientation decreases past {@link #UP}, reset to {@link #RIGHT}.
+	 */
 	public void rotateCW() {
 		currentOrientation = currentOrientation <= 0 ? RIGHT : --currentOrientation;
 	}
 
-	/** Position of the top left corner of the {@link Tetromino} canvas on the {@link TetrisBoard} */
+	/**
+	 * X coordinate of the top left corner of the {@link Tetromino} canvas on the {@link TetrisBoard}
+	 */
 	public int getX() {
 		return x;
 	}
 
-	/** Position of the top left corner of the {@link Tetromino} canvas on the {@link TetrisBoard} */
+	/**
+	 * Y coordinate of the top left corner of the {@link Tetromino} canvas on the {@link TetrisBoard}
+	 */
 	public int getY() {
 		return y;
 	}
 
 	/**
-	 * Integer representing current orientation of the tetromino<br/>
-	 * (UP = 0, LEFT = 1, DOWN = 2, RIGHT = 3)
+	 * Integer representing current orientation of the polyomino<br/>
 	 */
 	public int getOrientation() {
 		return currentOrientation;
@@ -94,8 +110,8 @@ public abstract class Polyomino {
 	}
 
 	/**
-	 * 2D {@link Block} array (4x4) that holds the 4 orientations (UP, LEFT, DOWN, RIGHT) for this tetromino.
-	 * "Orientations" themselves are 4 tetromino {@link Block Blocks} put together.
+	 * 2D {@link Block} array (4x4) that holds the 4 orientations for this polyomino.
+	 * "Orientations" themselves are 4 polyomino {@link Block Blocks} put together.
 	 */
 	public Block[][] getOrientations() {
 		return allOrientations;
@@ -131,6 +147,11 @@ public abstract class Polyomino {
 		return type;
 	}
 
+	/**
+	 * The string representation of this object.
+	 * @return the name and type of the object, its coordinates, its orientation, and the coordinates of all
+	 * {@link Block Blocks} that make up the object.
+	 */
 	public String toString() {
 		StringBuilder ret = new StringBuilder("Block coordinates of ");
 		ret.append(getName());

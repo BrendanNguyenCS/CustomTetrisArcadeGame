@@ -28,8 +28,8 @@ public class Pentomino extends Polyomino {
 
 	/**
 	 * Constructs a new pentomino, based on the type.<br />
-	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block}s.<br />
-	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b>
+	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
+	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to {@link #UP}.</b>
 	 */
 	public Pentomino(int x, int y, int type, int orientation) {
 		logger = Logger.getLogger("Pentomino");
@@ -170,7 +170,10 @@ public class Pentomino extends Polyomino {
 			setOrientation(UP);
 		}
 	}
-	
+
+	/**
+	 * @return the name and type of pentomino
+	 */
 	public String getName() {
 		String name = getPolyomino();
 		switch (getType()) {

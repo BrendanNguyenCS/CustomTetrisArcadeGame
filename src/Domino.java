@@ -21,7 +21,7 @@ public class Domino extends Polyomino {
 	/**
 	 * Constructs a new domino, based on the type.<br />
 	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
-	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
+	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to {@link #UP}.</b>
 	 */
 	public Domino(int x, int y, int orientation) {
 		// set x and y for the shape
