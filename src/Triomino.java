@@ -28,7 +28,7 @@ public class Triomino extends Polyomino {
 	/**
 	 * Constructs a new triomino, based on the type.<br />
 	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
-	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
+	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to {@link #UP}.</b>
 	 */
 	public Triomino(int x, int y, int type, int orientation) {
 		logger = Logger.getLogger("Triomino");

@@ -6,7 +6,9 @@
  * @version 1.00 2018/03/10
  */
 public class Block {
-	/** Position of the top left corner of the {@link Block} on the {@link Tetromino} canvas */
+	/**
+	 * Position of the top left corner of the {@link Block} on the {@link Polyomino} canvas
+	 */
 	private int x, y;
 
 	public Block(int x, int y) {
@@ -14,7 +16,9 @@ public class Block {
 		this.y = y;
 	}
 
-	/** Position of the top left corner of the {@link Block} on the {@link Tetromino} canvas */
+	/**
+	 * X coordinate of the top left corner of the {@link Block} on the {@link Polyomino} canvas
+	 */
 	public int getX() {
 		return x;
 	}
@@ -23,7 +27,9 @@ public class Block {
 		this.x = x;
 	}
 
-	/** Position of the top left corner of the {@link Block} on the {@link Tetromino} canvas */
+	/**
+	 * Y coordinate of the top left corner of the {@link Block} on the {@link Polyomino} canvas
+	 */
 	public int getY() {
 		return y;
 	}
@@ -32,14 +38,23 @@ public class Block {
 		this.y = y;
 	}
 
+	/**
+	 * Shift the X coordinate of the top left corner
+	 */
 	public void changeX(int deltaX) {
 		x += deltaX;
 	}
 
+	/**
+	 * Shift the Y coordinate of the top left corner
+	 */
 	public void changeY(int deltaY) {
 		y += deltaY;
 	}
-	
+
+	/**
+	 * @return the position of the top left corner of this {@link Block} in the form of (x, y)
+	 */
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}

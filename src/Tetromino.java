@@ -9,7 +9,9 @@ import java.util.logging.Level;
  * @version 2.00 2018/03/20
  */
 public class Tetromino extends Polyomino {
-	/** Final ints representing names of tetrominoes */
+	/**
+	 * Final ints representing names of tetrominoes
+	 */
 	public final int I = 0,  J = 1, L = 2, O = 3, S = 4, T = 5, Z = 6;
 	/**
 	 * Logging to replace existing error handling
@@ -25,10 +27,11 @@ public class Tetromino extends Polyomino {
 		logger = Logger.getLogger("Tetromino");
 	}
 
+
 	/**
 	 * Constructs a new tetromino, based on the type.<br />
 	 * Sets color randomly, and creates an array of orientations, each composed of 4 {@link Block Blocks}.<br />
-	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to 0 (UP).</b> 
+	 * <b>Starts in whichever orientation is stated in the parameter. If out of range 0-3, defaults to {@link #UP}.</b>
 	 */
 	public Tetromino(int x, int y, int type, int orientation) {
 		logger = Logger.getLogger("Tetromino");

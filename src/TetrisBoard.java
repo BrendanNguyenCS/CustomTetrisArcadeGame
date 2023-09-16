@@ -46,11 +46,22 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 	 */
 	private Logger logger;
 
+	/**
+	 * Constructor
+	 * @param width the width of the board
+	 * @param height the height of the board
+	 */
 	public TetrisBoard(int width, int height) {
 		this(width, height, Color.LIGHT_GRAY);
 		logger = Logger.getLogger("CustomTetrisArcadeGame");
 	}
 
+	/**
+	 * Constructor
+	 * @param width the width of the board
+	 * @param height the height of the board
+	 * @param color the background color of the board
+	 */
 	public TetrisBoard(int width, int height, Color color) {
 		running = false;
 		paused = false;
@@ -370,7 +381,7 @@ public class TetrisBoard extends JPanel implements JavaArcade, KeyListener, Acti
 
 	/**
 	 * Creates a new active {@link Polyomino}, makes it the first {@link Polyomino} in polyominoes array
-	 * and pushes back all the old {@link Polyomino}s' indexes.<br />
+	 * and pushes back all the old {@link Polyomino Polyominos'} indexes.<br />
 	 * <b>Note:</b> Does not call {@link #repaint()} (prevents redundancy where this function is called)
 	 */
 	private Polyomino newPolyomino() {
