@@ -38,11 +38,7 @@ public class Triomino extends Polyomino {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color(
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256)
-		));
+		setRandomColor();
 		
 		// set triomino type & orientations
 		setType(type);
@@ -62,13 +58,12 @@ public class Triomino extends Polyomino {
 		}
 
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4) {
-			setOrientation(orientation);
-		} else {
-			setOrientation(UP);
-		}
+		setStartingOrientation(orientation);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getName() {
 		String name = getPolyomino();
 		switch (getType()) {
@@ -82,7 +77,10 @@ public class Triomino extends Polyomino {
 		}
 		return name;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getPolyomino() {
 		return "triomino";
 	}

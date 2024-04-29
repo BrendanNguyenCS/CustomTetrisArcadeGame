@@ -5,8 +5,7 @@
  * @author A. DiBenedetto
  * @version 1.00 2016/2/15
  */
-public interface JavaArcade
-{
+public interface JavaArcade {
 	/**
 	 * This method should return true if your game is in a "start" state, it should
 	 * return false if your game is in a "paused" state or "stopped" or "unstarted"
@@ -46,5 +45,5 @@ public interface JavaArcade
     void stopGame();
 
 	/** This method should return the current players number of points */
-    int getPoints(); // add to spec
+    int getPoints();
 }

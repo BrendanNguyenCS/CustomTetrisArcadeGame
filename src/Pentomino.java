@@ -39,11 +39,7 @@ public class Pentomino extends Polyomino {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color(
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256)
-		));
+		setRandomColor();
 		
 		// set pentomino type & orientations
 		setType(type);
@@ -164,15 +160,11 @@ public class Pentomino extends Polyomino {
 		}
 		
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4) {
-			setOrientation(orientation);
-		} else {
-			setOrientation(UP);
-		}
+		setStartingOrientation(orientation);
 	}
 
 	/**
-	 * @return the name and type of pentomino
+	 * {@inheritDoc}
 	 */
 	public String getName() {
 		String name = getPolyomino();
@@ -203,7 +195,10 @@ public class Pentomino extends Polyomino {
 		}
 		return name;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getPolyomino() {
 		return "pentomino";
 	}

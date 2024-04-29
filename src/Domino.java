@@ -29,11 +29,7 @@ public class Domino extends Polyomino {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color(
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256)
-		));
+		setRandomColor();
 		
 		// set domino type & orientations
 		setType(domino);
@@ -45,17 +41,19 @@ public class Domino extends Polyomino {
 		});
 		
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4) {
-			setOrientation(orientation);
-		} else {
-			setOrientation(UP);
-		}
+		setStartingOrientation(orientation);
 	}
-	
+
+	/**
+	 * Returns the name of the domino.
+	 */
 	public String getName() {
 		return getPolyomino();
 	}
-	
+
+	/**
+	 * Returns the name of the domino.
+	 */
 	public String getPolyomino() {
 		return "domino";
 	}

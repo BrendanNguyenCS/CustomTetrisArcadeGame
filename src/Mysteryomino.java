@@ -37,11 +37,7 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		setY(y);
 
 		// set color for the shape
-		setColor(new Color(
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256),
-				(int)(Math.random() * 256)
-		));
+		setRandomColor();
 
 		// set mysteromino type & orientations
 		setType(smiley);
@@ -58,17 +54,19 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		});
 
 		// set starting orientation
-		if (orientation >= 0 && orientation < 4) {
-			setOrientation(orientation);
-		} else {
-			setOrientation(UP);
-		}
+		setStartingOrientation(orientation);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getName() {
 		return getPolyomino() + " smiley";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getPolyomino() {
 		return "mysteryomino";
 	}

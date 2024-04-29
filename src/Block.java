@@ -40,6 +40,8 @@ public class Block {
 
 	/**
 	 * Shift the X coordinate of the top left corner
+	 *
+	 * @param deltaX the amount to shift the X coordinate by
 	 */
 	public void changeX(int deltaX) {
 		x += deltaX;
@@ -47,6 +49,8 @@ public class Block {
 
 	/**
 	 * Shift the Y coordinate of the top left corner
+	 *
+	 * @param deltaY the amount to shift the Y coordinate by
 	 */
 	public void changeY(int deltaY) {
 		y += deltaY;

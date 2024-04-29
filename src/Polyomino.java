@@ -8,13 +8,13 @@ import java.awt.Color;
  */
 public abstract class Polyomino {
 	/**
-	 * Position of the top left corner of the {@link Polyomino} canvas on the {@link TetrisBoard}<br />
-	 * (in {@link TetrisBoard#L} units, not pixels)
+	 * Position of the top left corner of the {@link Polyomino} canvas on the {@link TetrisBoard}
+	 * (in {@link TetrisBoard#L L} units, not pixels)
 	 */
 	private int x, y;
 	/**
 	 * Integers representing current orientation of the polyomino<br/>
-	 * (UP = 0, LEFT = 1, DOWN = 2, RIGHT = 3)
+	 * ({@link #UP} = 0, {@link #LEFT} = 1, {@link #DOWN} = 2, {@link #RIGHT} = 3)
 	 */
 	private int currentOrientation;
 	public final int UP = 0;
@@ -22,7 +22,7 @@ public abstract class Polyomino {
 	public final int DOWN = 2;
 	public final int RIGHT = 3;
 	/**
-	 * 2D {@link Block} array (4*n) that holds the 4 orientations ({@link #UP}, {@link #LEFT}, {@link #DOWN},
+	 * 2D {@link Block} array (4 &times; n) that holds the 4 orientations ({@link #UP}, {@link #LEFT}, {@link #DOWN},
 	 * {@link #RIGHT}) for this polyomino. "Orientations" themselves are the polyomino {@link Block Blocks} put together.
 	 */
 	private Block[][] allOrientations;
@@ -60,7 +60,7 @@ public abstract class Polyomino {
 	}
 
 	/**
-	 * Rotates the polyomino counterclockwise (left).<br />Changes {@link #currentOrientation} accordingly.
+	 * Rotates the polyomino counterclockwise (left) by changing {@link #currentOrientation} accordingly.
 	 * If orientation increases past {@link #RIGHT}, reset to {@link #UP}.
 	 */
 	public void rotateCCW() {
@@ -68,7 +68,7 @@ public abstract class Polyomino {
 	}
 
 	/**
-	 * Rotates the polyomino clockwise (right).<br />Changes {@link #currentOrientation} accordingly.
+	 * Rotates the polyomino clockwise (right) by changing {@link #currentOrientation} accordingly.
 	 * If orientation decreases past {@link #UP}, reset to {@link #RIGHT}.
 	 */
 	public void rotateCW() {
@@ -121,16 +121,26 @@ public abstract class Polyomino {
 		allOrientations = o;
 	}
 
+	public void setStartingOrientation(int orientation) {
+		switch (orientation) {
+			case 0, 1, 2, 3 -> this.setOrientation(orientation);
+			default -> this.setOrientation(UP);
+		}
+	}
+
 	/**
-	 * String w/ the name of the specific polyomino shape
+	 * The name of this specific polyomino shape
 	 */
 	public abstract String getName();
 
 	/**
-	 * String w/ the type of polyomino (domino, pentomino, etc)
+	 * The type of polyomino this object is
 	 */
 	public abstract String getPolyomino();
 
+	/**
+	 * The color of this polyomino
+	 */
 	public Color getColor() {
 		return color;
 	}
@@ -139,6 +149,17 @@ public abstract class Polyomino {
 		this.color = color;
 	}
 
+	public void setRandomColor() {
+		color = new Color(
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256),
+				(int)(Math.random() * 256)
+		);
+	}
+
+	/**
+	 * The type of polyomino this object is
+	 */
 	public void setType(int n) {
 		type = n;
 	}
