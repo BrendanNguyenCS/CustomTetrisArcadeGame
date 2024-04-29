@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -34,8 +33,7 @@ public class Triomino extends Polyomino {
 		logger = Logger.getLogger("Triomino");
 
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 
 		// set color for the shape
 		setRandomColor();

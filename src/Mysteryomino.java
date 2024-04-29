@@ -1,7 +1,7 @@
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A mysteromino object to be used in Tetris. Composed of 1 block.
@@ -33,8 +33,7 @@ public class Mysteryomino extends Polyomino implements ActionListener {
 		timer.start();
 
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 
 		// set color for the shape
 		setRandomColor();

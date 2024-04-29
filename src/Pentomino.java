@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -35,8 +34,7 @@ public class Pentomino extends Polyomino {
 		logger = Logger.getLogger("Pentomino");
 
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 
 		// set color for the shape
 		setRandomColor();

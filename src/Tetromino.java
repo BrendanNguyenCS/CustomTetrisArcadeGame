@@ -1,6 +1,5 @@
-import java.awt.Color;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A tetromino object to be used in Tetris. Composed of 4 blocks.
@@ -37,8 +36,7 @@ public class Tetromino extends Polyomino {
 		logger = Logger.getLogger("Tetromino");
 
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 		
 		// set color for the shape
 		setRandomColor();

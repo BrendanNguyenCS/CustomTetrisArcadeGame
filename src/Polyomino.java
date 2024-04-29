@@ -43,6 +43,11 @@ public abstract class Polyomino {
 		this.y = y;
 	}
 
+	public void setCoordinates(int x, int y) {
+		setX(x);
+		setY(y);
+	}
+
 	public void moveLeft() {
 		x--;
 	}

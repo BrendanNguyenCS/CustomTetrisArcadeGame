@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 /**
  * A domino object to be used in Tetris. Composed of 4 blocks.
  *
@@ -25,8 +23,7 @@ public class Domino extends Polyomino {
 	 */
 	public Domino(int x, int y, int orientation) {
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 
 		// set color for the shape
 		setRandomColor();

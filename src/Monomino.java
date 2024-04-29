@@ -25,8 +25,7 @@ public class Monomino extends Polyomino {
 	 */
 	public Monomino(int x, int y, int orientation) {
 		// set x and y for the shape
-		setX(x);
-		setY(y);
+		setCoordinates(x, y);
 
 		// set color for the shape
 		setRandomColor();
